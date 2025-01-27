@@ -1,0 +1,31 @@
+name: Playwright Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    # Use an Ubuntu runner
+    runs-on: ubuntu-latest
+
+    # Use Docker for running tests
+    container:
+      image: mcr.microsoft.com/playwright:v1.39.0-focal  # Replace with the latest version of the Playwright Docker image
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 3: Run Playwright tests
+      - name: Run Playwright tests
+        run: npx playwright test
