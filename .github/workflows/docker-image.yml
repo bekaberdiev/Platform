@@ -1,31 +1,27 @@
-name: Playwright Tests
+name: Example Workflow
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      moduleName:
+        description: "Name of the module to test"
+        required: true
+        default: "platform"
+      PROVIDER_PASSWORD:
+        description: "Password for provider"
+        required: false
+      testCycleName:
+        description: "Test cycle name for Zephyr integration"
+        required: false
+        default: "Test Automation Run"
 
 jobs:
-  test:
-    # Use an Ubuntu runner
+  example_job:
     runs-on: ubuntu-latest
 
-    # Use Docker for running tests
-    container:
-      image: mcr.microsoft.com/playwright:v1.39.0-focal  # Replace with the latest version of the Playwright Docker image
-
     steps:
-      # Step 1: Check out the repository
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      # Step 2: Install dependencies
-      - name: Install dependencies
-        run: npm install
-
-      # Step 3: Run Playwright tests
-      - name: Run Playwright tests
-        run: npx playwright test
+      - name: Echo inputs
+        run: |
+          echo "Module Name: ${{ inputs.moduleName }}"
+          echo "Provider Password: ${{ inputs.PROVIDER_PASSWORD }}"
+          echo "Test Cycle Name: ${{ inputs.testCycleName }}"
