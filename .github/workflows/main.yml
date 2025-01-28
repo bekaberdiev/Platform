@@ -1,0 +1,27 @@
+name: Example Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      moduleName:
+        description: "Name of the module to test"
+        required: true
+        default: "platform"
+      PROVIDER_PASSWORD:
+        description: "Password for provider"
+        required: false
+      testCycleName:
+        description: "Test cycle name for Zephyr integration"
+        required: false
+        default: "Test Automation Run"
+
+jobs:
+  example_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Echo inputs
+        run: |
+          echo "Module Name: ${{ inputs.moduleName }}"
+          echo "Provider Password: ${{ inputs.PROVIDER_PASSWORD }}"
+          echo "Test Cycle Name: ${{ inputs.testCycleName }}"
